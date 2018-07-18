@@ -1,0 +1,28 @@
+<div id="header">
+	<div class="top">
+		<div class="title">DBLOG管理平台</div>
+		<div class="nav-label">
+			<span>欢迎您：『 {$account} 』</span>
+			<a href="{:url('dblogadmin/admin.admin/logout')}">安全退出</a>
+		</div>
+	</div>
+	{notempty name="nav_bars"}
+	<div class="nav-bar">
+		<ul>
+			{volist name="nav_bars" id="nav_bar"}
+			<li>
+				<a href="{$nav_bar.url}" class="{$nav_bar.class}">{$nav_bar.text}</a>
+				{notempty name="nav_bar.sub_navs"}
+				<ul>
+					{volist name="nav_bar.sub_navs" id="sub_nav"}
+					<li><a href="{$sub_nav.url}">{$sub_nav.text}</a></li>
+					{/volist}
+				</ul>
+				{/notempty}
+			</li>
+			{/volist}
+		</ul>
+		<div class="clear-both"></div>
+	</div>
+	{/notempty}
+</div>

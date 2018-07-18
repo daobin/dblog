@@ -1,0 +1,6 @@
+<select name="category_id[]" class="form-control" style="width:auto;">
+    <option value="0">请选择品类</option>
+    {volist name="cate_list" id="cate"}
+    <option value="{$cate.category_id}">{$cate.title}</option>
+    {/volist}
+</select>

@@ -1,0 +1,62 @@
+<div class="container">
+    <div class="row">
+        {notempty name="parent_info"}
+        <div class="title">{$parent_info.title} - 品类列表</div>
+        {else/}
+        <div class="title">品类列表</div>
+        {/notempty}
+        <div class="pull-right">
+            <a href="{:url('dblogadmin/product.category/detail')}?parent_id={$parent_id}" class="btn btn-success">
+                <span class="glyphicon glyphicon-plus"></span>&nbsp;新增品类
+            </a>
+            {if condition="(int)$parent_id > 0"}
+            <a href="{$back_link}" class="btn btn-info">
+                <span class="glyphicon glyphicon-list"></span>&nbsp;父级品类
+            </a>
+            {/if}
+        </div>
+    </div>
+    <div class="row margin-top30">
+        <table class="table table-bordered">
+            <tr>
+                <th class="text-center">ID</th>
+                <th class="text-center">品类标题</th>
+                <th class="text-center">品类状态</th>
+                <th class="text-center">品类排序</th>
+                <th class="text-center">最后更新</th>
+                <th class="text-center">&nbsp;</th>
+            </tr>
+            {notempty name="cate_list"}
+                {volist name="cate_list" id="cate"}
+            <tr>
+                <td class="text-center">{$cate.category_id}</td>
+                <td class="text-center">{$cate.title}</td>
+                <td class="text-center">
+                    {eq name="cate.status" value="1"}
+                    <span class="text-success"><span class="glyphicon glyphicon-ok"></span></span>
+                    {else/}
+                    <span class="text-danger"><span class="glyphicon glyphicon-remove"></span></span>
+                    {/eq}
+                </td>
+                <td class="text-center">{$cate.sort}</td>
+                <td class="text-center">{$cate.operator|default='-'} [ {$cate.gmt_modify} ]</td>
+                <td class="text-center">
+                    <a href="{:url('dblogadmin/product.category/detail')}?category_id={$cate.category_id}&parent_id={$parent_id}"
+                       class="btn btn-sm btn-success">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;编辑
+                    </a>
+                    <a href="{:url('dblogadmin/product.category/')}?parent_id={$cate.category_id}"
+                       class="btn btn-sm btn-info">
+                        <span class="glyphicon glyphicon-list"></span>&nbsp;子级品类
+                    </a>
+                </td>
+            </tr>
+                {/volist}
+            {else/}
+            <tr>
+                <td colspan="6" class="text-center">空空如也···</td>
+            </tr>
+            {/notempty}
+        </table>
+    </div>
+</div>

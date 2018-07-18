@@ -1,0 +1,54 @@
+<div class="container">
+    <div class="row">
+        <div class="title">管理员列表</div>
+        <div class="pull-right">
+            <a href="javascript:void(0);" class="btn btn-info J-admin-edit" admin_id="0">
+                <span class="glyphicon glyphicon-plus"></span>&nbsp;新增管理员
+            </a>
+        </div>
+    </div>
+    <div class="row margin-top30">
+        <table class="table table-bordered">
+            <tr>
+                <th class="text-center">ID</th>
+                <th class="text-center">账号</th>
+                <th class="text-center">&nbsp;</th>
+            </tr>
+            {notempty name="admin_list"}
+            {volist name="admin_list" id="admin"}
+            <tr>
+                <td class="text-center">{$admin.admin_id}</td>
+                <td class="text-center">{$admin.account}</td>
+                <td class="text-center">
+                    <a href="javascript:void(0);" class="btn btn-sm btn-success J-admin-edit" admin_id="{$admin.admin_id}">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;编辑
+                    </a>
+                    <a href="javascript:void(0);" class="btn btn-sm btn-danger J-admin-delete" admin_id="{$admin.admin_id}">
+                        <span class="glyphicon glyphicon-trash"></span>&nbsp;删除
+                    </a>
+                </td>
+            </tr>
+            {/volist}
+            {else/}
+            <tr>
+                <td colspan="5" class="text-center">空空如也···</td>
+            </tr>
+            {/notempty}
+        </table>
+    </div>
+</div>
+<script src="{:get_url_of_static_resource('static/dblogadmin/js/admin.js')}"></script>
+<script>
+    $('.J-admin-edit').click(function(){
+        Admin.adminEditBox($(this).attr('admin_id'));
+    });
+
+    $(document).on('submit', '#J-edit-form', function(){
+        Admin.adminEditSave();
+        return false;//防止表单自身的提交动作
+    });
+
+    $('.J-admin-delete').click(function(){
+        Admin.adminDelete($(this).attr('admin_id'));
+    });
+</script>

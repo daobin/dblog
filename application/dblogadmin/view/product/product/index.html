@@ -1,0 +1,52 @@
+<div class="container">
+    <div class="row">
+        <div class="title">产品列表</div>
+        <div class="pull-right">
+            <a href="{:url('dblogadmin/product.product/detail')}" class="btn btn-success">
+                <span class="glyphicon glyphicon-plus"></span>&nbsp;新增产品
+            </a>
+        </div>
+    </div>
+    <div class="row margin-top30">
+        <table class="table table-bordered">
+            <tr>
+                <th class="text-center">ID</th>
+                <th class="text-center">产品标题</th>
+                <th class="text-center">产品状态</th>
+                <th class="text-center">浏览量</th>
+                <th class="text-center">最后更新</th>
+                <th class="text-center">&nbsp;</th>
+            </tr>
+            {notempty name="prod_list"}
+                {volist name="prod_list" id="prod"}
+            <tr>
+                <td class="text-center">{$prod.product_id}</td>
+                <td class="text-center">{$prod.title}</td>
+                <td class="text-center">
+                    {eq name="prod.status" value="1"}
+                    <span class="text-success"><span class="glyphicon glyphicon-ok"></span></span>
+                    {else/}
+                    <span class="text-danger"><span class="glyphicon glyphicon-remove"></span></span>
+                    {/eq}
+                </td>
+                <td class="text-center">{$prod.page_view|default=0}</td>
+                <td class="text-center">{$prod.operator|default='-'} [ {$prod.gmt_modify} ]</td>
+                <td class="text-center">
+                    <a href="{:url('dblogadmin/product.product/detail')}?product_id={$prod.product_id}"
+                       class="btn btn-sm btn-success">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;编辑
+                    </a>
+                </td>
+            </tr>
+                {/volist}
+            {else/}
+            <tr>
+                <td colspan="6" class="text-center">空空如也···</td>
+            </tr>
+            {/notempty}
+        </table>
+        {if condition="$prod_list->render()"}
+        {$prod_list->render()}
+        {/if}
+    </div>
+</div>

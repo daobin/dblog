@@ -1,0 +1,12 @@
+<div class="margin-top-30px"></div>
+<div id="logo">
+    <a href="/"><strong>赖道斌的个人博客</strong></a>
+</div>
+<ul id="header-nav-bar">
+    <li><a href="/" class="hover">博客首页</a></li>
+    {notempty name="cate_list"}
+        {volist name="cate_list" id="cate"}
+    <li><a href="{:url('index/Article/index', ['id'=>$cate.category_id])}"><strong>{$cate.title|strip_tags=###}</strong></a></li>
+        {/volist}
+    {/notempty}
+</ul>

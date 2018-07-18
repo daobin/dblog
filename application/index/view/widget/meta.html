@@ -1,0 +1,10 @@
+<meta charset="UTF-8">
+<meta http-equiv="x-ua-compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{$meta.title}</title>
+<meta name="keywords" content="{$meta.keywords}" />
+<meta name="description" content="{$meta.description}" />
+{volist name="css_list" id="css"}
+<link rel="stylesheet" href="{:get_url_of_static_resource($css)}{$Think.config.timestamp}" />
+{/volist}
+<script type="text/javascript" src="{:get_url_of_static_resource('jquery/jquery-1.11.0.min.js')}"></script>

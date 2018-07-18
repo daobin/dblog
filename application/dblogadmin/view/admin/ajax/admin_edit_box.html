@@ -1,0 +1,31 @@
+<div style="width:100%; height:100%; padding:30px; background:#fff;">
+    <div style="width:90%;">
+        <form id="J-edit-form" class="form" autocomplete="off">
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon font-bold">账号</div>
+                    {if condition="$admin_info"}
+                    <input type="text" class="form-control" value="{$admin_info.account}" disabled />
+                    {else/}
+                    <input type="text" class="form-control" name="account" maxlength="10" />
+                    {/if}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon font-bold">密码</div>
+                    {if condition="$admin_info"}
+                    <input type="password" class="form-control" name="password"
+                           maxlength="30" placeholder="为空表示密码不变" />
+                    {else/}
+                    <input type="password" class="form-control" name="password" maxlength="30" />
+                    {/if}
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="hidden" name="admin_id" value="{if condition="$admin_info"}{$admin_info.admin_id}{/if}" />
+                <input type="submit" class="btn btn-success pull-right font-bold" value="保存" />
+            </div>
+        </form>
+    </div>
+</div>

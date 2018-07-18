@@ -1,0 +1,22 @@
+<IfModule mod_rewrite.c>
+  Options +FollowSymlinks -Multiviews
+  RewriteEngine On
+
+  RewriteCond %{HTTP_HOST} ^laidaobin.com$ [NC]
+  RewriteRule ^(.*)$ http://www.laidaobin.com/$1 [R=301,L]
+
+  #history page of article list
+  RewriteRule ^index.php/home-article-index-cid-([\d]+).html /article-list/$1\.html [R=301,L]
+  #history page of article detail
+  RewriteRule ^index.php/home-article-index-aid-([\d]+).html /article-detail/$1\.html [R=301,L]
+
+  #upload image show
+  RewriteRule ^image/(.+)_(\d+)_(\d+)(\.jpg|\.jpeg|\.png)$ /index/index/image?pathname=$1&w=$2&h=$3&suffix=$4 [L]
+
+  #PDF ECHO
+  RewriteRule ^upload/(.+)\.pdf$ output_file\.php?file_type=pdf&file=$1 [L]
+
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]
+</IfModule>

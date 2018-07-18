@@ -1,0 +1,85 @@
+<div class="container">
+    <div class="row">
+        <div class="title">品类编辑</div>
+        <div class="pull-right">
+            <a href="{$back_link}" class="btn btn-info">
+                <span class="glyphicon glyphicon-list"></span>&nbsp;品类列表
+            </a>
+        </div>
+    </div>
+    <div class="row margin-top30">
+        <form id="J-edit-form" class="form" enctype="multipart/form-data" autocomplete="off">
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon font-bold">标题</div>
+                    <input type="text" class="form-control" name="title" maxlength="30"
+                           value="{$cate_info.title|default=''}" />
+                </div>
+            </div>
+            {notempty name="parent_info"}
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon font-bold">父级品类</div>
+                    <input type="type" class="form-control" value="{$parent_info.title}" disabled />
+                </div>
+            </div>
+            {/notempty}
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon font-bold">排序</div>
+                    <input type="text" class="form-control dv_int" name="sort"
+                           maxlength="4" value="{$cate_info.sort|default=''}" placeholder="默认为0" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon font-bold">状态</div>
+                    {php}
+                    $checked_on = '';
+                    $checked_off = '';
+                    if((int)$cate_info['status'] == 1){
+                    $checked_on = 'checked';
+                    }else{
+                    $checked_off = 'checked';
+                    }
+                    {/php}
+                    &nbsp;
+                    <label class="font-normal"><input type="radio" name="status" value="1" {$checked_on} />开启</label>
+                    &nbsp;
+                    <label class="font-normal"><input type="radio" name="status" value="0" {$checked_off} />关闭</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon font-bold">图片</div>
+                    &nbsp;
+                    <input type="file" name="image_path_file"/>
+                    {php}
+                    if(trim($cate_info['image_path_file'])){
+                        $img_src = preg_replace('/(\.jpg|\.jpeg|\.png)$/i', '_100_100$1', '/image'.$cate_info['image_path_file']);
+                        echo '<img src="'.$img_src.'" />';
+                    }
+                    {/php}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon font-bold">描述</div>
+                    <textarea name="description" class="form-control" style="height:200px;">{$cate_info.description|default=''}</textarea>
+                </div>
+            </div>
+            <div class="form-group margin-top30">
+                <input type="hidden" name="category_id" value="{$cate_info.category_id|default=0}" />
+                <input type="hidden" name="parent_id" value="{$parent_id|default=0}" />
+                <input type="submit" class="btn btn-success pull-right font-bold" value="保存" />
+            </div>
+        </form>
+    </div>
+</div>
+<script src="{:get_url_of_static_resource('static/dblogadmin/js/category.js')}{$Think.config.timestamp}"></script>
+<script>
+    $('#J-edit-form').submit(function(){
+        Category.save();
+        return false;//防止表单自身的提交动作
+    });
+</script>

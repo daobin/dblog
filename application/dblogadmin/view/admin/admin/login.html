@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>DBLOG管理平台</title>
+    <link rel="stylesheet" type="text/css" href="{:get_url_of_static_resource('bootstrap/css/bootstrap.min.css')}" />
+    <script src="{:get_url_of_static_resource('jquery/jquery-1.11.0.min.js')}"></script>
+    <style type="text/css">
+        html, body{width:100%; min-width:1024px; margin:0; padding:0; border:none;
+            font-size:14px; font-weight:normal; font-family:'宋体','Arial'; color:#000;}
+        .width100{width:100px !important;}
+        .font-bold{font-weight: bold !important;}
+        #login-logo{text-align:center; margin-top:30px;}
+        #login-form{width:500px; margin:0 auto; text-align:center; background:#fff; border:#abf 2px dashed;}
+        #login-form>div{font-size:20px; font-weight:bold; color:#3080b1; height:80px; line-height:80px;}
+        #login-form hr{width:100%; height:1px; background:#abf; padding:0; margin:0;}
+        #login-form form{width:350px; margin:30px auto; margin-bottom:0; text-align:left;}
+        #login-form form .form-group{margin-bottom:10px;}
+        #login-form form input.form-control{width:300px;}
+        #captcha_img{cursor:pointer;}
+    </style>
+</head>
+<body>
+<div id="login-logo"><img src="{:get_url_of_static_resource('static/dblogadmin/images/login-logo.png')}" /></div>
+<div id="login-form">
+    <div>DBLOG管理平台登录</div>
+    <hr />
+    <form class="form-inline" method="post" autocomplete="off">
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon font-bold">登录账号</div>
+                <input type="text" class="form-control" name="account" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon font-bold">登录密码</div>
+                <input type="password" class="form-control" name="password" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon font-bold">验证编码</div>
+                <input type="text" class="form-control width100" name="captcha" />
+                <img src="{:captcha_src()}?{:uniqid()}" id="captcha_img" title="看不清楚？点击刷新！" />
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-success width100 font-bold" value="登录" />
+        </div>
+        <br/><br/>
+</div>
+</form>
+</div>
+<script src="{:get_url_of_static_resource('jquery/jquery-form-4.1.0.js')}"></script>
+<script>
+    $('#login-form input[name=account]').focus();
+
+    $('#captcha_img').click(function(){
+        $(this).prop('src', '/captcha.html?' + Math.random());
+    });
+
+    $('#login-form form').submit(function(){
+        $(this).ajaxSubmit({
+            url: '/dblogadmin/admin.ajax/loginProcess',
+            type: 'post',
+            dataType: 'json',
+            success: function(resdata){
+                if(resdata.status == 'success'){
+                    window.location.href = '/dblogadmin/';
+                }else{
+                    alert(resdata.msg);
+                    $('input[name=captcha]').val('');
+                    $('#captcha_img').click();
+                }
+            }
+        });
+        return false;
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<div class="margin-top-60px"></div>
+<div id="content-left">
+    <div id="bread-crumb-nav" class="margin-bottom-30px">
+        <span>您的当前位置：</span>
+        <span><a href="/">首页</a></span>
+        {volist name="bread_crumbs" id="bread_crumb" empty=""}
+        <span>&gt;</span>
+            {if condition="$bread_crumb['category_id'] != $cate_info['category_id']"}
+        <span><a href="{:url('index/Article/index', ['id'=>$bread_crumb.category_id])}">{$bread_crumb.title|strip_tags=###}</a></span>
+            {else/}
+        <span>{$bread_crumb.title|strip_tags=###}</span>
+            {/if}
+        {/volist}
+    </div>
+    {notempty name="cate_list"}
+    <div class="module">
+        <div class="md-name background-none"><p>{$cate_info.title|strip_tags=###}分类</p></div>
+        <div class="md-content margin-top-15px margin-bottom-30px">
+            {volist name="cate_list" id="cate"}
+                {php}
+                $img_src = get_url_of_static_resource('static/index/image/default_240_160.jpg');
+                if($cate['image_path_file']){
+                    $img_src = preg_replace('/(\.jpg|\.jpeg|\.png)$/i', '_220_180$1', '/image'.$cate['image_path_file']);
+                }
+                {/php}
+            <div class="mdc-image cate-list">
+                <a href="{:url('index/Article/index', ['id'=>$cate.category_id])}" title="{$cate.title|strip_tags=###}">
+                    <img src="{$img_src}" alt="{$cate.title|strip_tags=###}" />
+                    <span>{$cate.title|strip_tags=###}</span>
+                </a>
+            </div>
+            {/volist}
+            <div class="float-clear-both"></div>
+        </div>
+    </div>
+    {/notempty}
+    {notempty name="article_list"}
+    <div class="module">
+        <div class="md-name background-none"><p>{$cate_info.title|strip_tags=###}文章</p></div>
+        {volist name="article_list" id="article"}
+        <div class="md-content margin-top-15px margin-bottom-30px">
+            <div class="mdc-name margin-bottom-5px">
+                <a href="{:url('index/Article/detail', ['id'=>$article.product_id])}">
+                    <strong>{$article.title|strip_tags=###}</strong>
+                </a>
+            </div>
+            <div class="mdc-body">
+                <div class="mdc-image">
+                    {php}
+                    $img_src = get_url_of_static_resource('static/index/image/default_240_160.jpg');
+                    if($article['image_path_file']){
+                    $img_src = preg_replace('/(\.jpg|\.jpeg|\.png)$/i', '_180_120$1', '/image'.$article['image_path_file']);
+                    }
+                    {/php}
+                    <a href="{:url('index/Article/detail', ['id'=>$article.product_id])}" title="{$article.title|strip_tags=###}">
+                        <img src="{$img_src}" alt="{$article.title|strip_tags=###}" />
+                    </a>
+                </div>
+                <div class="mdc-description">{$article.description|default=''}</div>
+                <div class="float-clear-both"></div>
+            </div>
+            <div class="mdc-note margin-top-15px">
+                <span class="date">{$article.gmt_create|substr=###, 0, 10}</span>
+                <span class="author">{$article.operator|default=''}</span>
+            </div>
+        </div>
+        {/volist}
+    </div>
+    {/notempty}
+</div>
+<div id="content-right">{:widget('right_content/index', 'index')}</div>
+<div class="float-clear-both"></div>

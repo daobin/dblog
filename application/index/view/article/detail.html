@@ -1,0 +1,24 @@
+<div class="margin-top-60px"></div>
+<div id="content-left">
+    <div id="bread-crumb-nav" class="margin-bottom-30px">
+        <span>您的当前位置：</span>
+        <span><a href="/">首页</a></span>
+        {volist name="bread_crumbs" id="bread_crumb" empty=""}
+        <span>&gt;</span>
+        <span><a href="{:url('index/Article/index', ['id'=>$bread_crumb.category_id])}">{$bread_crumb.title|strip_tags=###}</a></span>
+        {/volist}
+        <span>&gt;</span>
+        <span>{$prod_info.title|strip_tags=###}</span>
+    </div>
+    <div id="article-detail">
+        <h1>{$prod_info.title|strip_tags=###}</h1>
+        <div class="note">
+            <span>发布时间：{$prod_info.gmt_create|substr=###, 0, 10}</span>
+            <span>作者：{$prod_info.operator|default=''}</span>
+            <span>阅读：{$prod_info.page_view|default=1}</span>
+        </div>
+        <div class="content">{$prod_info.description|default=''}</div>
+    </div>
+</div>
+<div id="content-right">{:widget('right_content/index', 'index')}</div>
+<div class="float-clear-both"></div>

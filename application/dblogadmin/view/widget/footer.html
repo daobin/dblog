@@ -1,0 +1,19 @@
+<div id="footer">
+	<span>版权所有</span>
+	<span class="copy">&copy</span>
+	<span>
+	{php}
+		$start_year = 2015;
+		$end_year = date('Y');
+
+		if($start_year < $end_year){
+			echo $start_year, '-', $end_year;
+		}else{
+			echo $end_year;
+		}
+	{/php}
+	</span>
+	<span>DBLOG</span>
+</div>
+
+<script src="{:get_url_of_static_resource('static/dblogadmin/js/global.js')}{$Think.config.timestamp}"></script>

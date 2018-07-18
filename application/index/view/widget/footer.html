@@ -1,0 +1,20 @@
+<div>
+    <span>版权所有</span>
+    <span>www.laidaobin.com</span>
+    <span class="copyright">&copy;</span>
+    <span>
+        {php}
+		$start_year = 2015;
+		$end_year = date('Y');
+
+		if($start_year < $end_year){
+			echo $start_year, '-', $end_year;
+		}else{
+			echo $end_year;
+		}
+	{/php}
+    </span>
+</div>
+{volist name="js_list" id="js"}
+<script type="text/javascript" src="{:get_url_of_static_resource($js)}{$Think.config.timestamp}"></script>
+{/volist}

@@ -1,0 +1,38 @@
+<div class="margin-top-60px"></div>
+<div id="content-left">
+    {notempty name="newest_article_list"}
+    <div class="module">
+        <div class="md-name"><p>最新文章</p></div>
+        {volist name="newest_article_list" id="article"}
+        <div class="md-content margin-top-15px margin-bottom-30px">
+            <div class="mdc-name margin-bottom-5px">
+                <a href="{:url('index/Article/detail', ['id'=>$article.product_id])}">
+                    <strong>{$article.title|strip_tags=###}</strong>
+                </a>
+            </div>
+            <div class="mdc-body">
+                <div class="mdc-image">
+                    {php}
+                    $img_src = get_url_of_static_resource('static/index/image/default_240_160.jpg');
+                    if($article['image_path_file']){
+                        $img_src = preg_replace('/(\.jpg|\.jpeg|\.png)$/i', '_180_120$1', '/image'.$article['image_path_file']);
+                    }
+                    {/php}
+                    <a href="{:url('index/Article/detail', ['id'=>$article.product_id])}" title="{$article.title|strip_tags=###}">
+                        <img src="{$img_src}" alt="{$article.title|strip_tags=###}" />
+                    </a>
+                </div>
+                <div class="mdc-description">{$article.description|strip_tags=###|mb_substr=###, 0, 300, 'UTF-8'}</div>
+                <div class="float-clear-both"></div>
+            </div>
+            <div class="mdc-note margin-top-15px">
+                <span class="date">{$article.gmt_create|substr=###, 0, 10}</span>
+                <span class="author">{$article.operator|default=''}</span>
+            </div>
+        </div>
+        {/volist}
+    </div>
+    {/notempty}
+</div>
+<div id="content-right">{:widget('right_content/index', 'index')}</div>
+<div class="float-clear-both"></div>
