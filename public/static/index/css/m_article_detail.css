@@ -1,0 +1,6 @@
+#article-detail h1{display: block; width: 100%; font-size: 1.2em; line-height: 1.2em;}
+#article-detail .note{border: 0.1em dashed #ccc; color: #999; height: 2em; line-height: 2em;
+    margin: 1.5em auto; text-align: center; font-size: 0.8em;}
+#article-detail .content{font-size: 0.8em; line-height: 1.5em;}
+#article-detail .content p{text-indent: 2em;}
+#article-detail .syntaxhighlighter .toolbar{display: none !important;}
